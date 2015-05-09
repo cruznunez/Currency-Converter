@@ -19,18 +19,17 @@ class Currency
     end
 
     if symbol_check(currency_symbols, amount)
-      puts "sym_check true"               #debugging
+    #  puts "sym_check true"               #debugging
       symbol, code = symbol_get(currency_symbols, amount)
-      @amount = amount.delete(symbol)
+      @amount = amount.delete(symbol).to_f
       @code = code
     else
-      puts "sym_check false"              #debugging
-      @amount = amount.to_i
+      #puts "sym_check false"            #debugging
+      puts amount
+      puts code
+      @amount = amount.to_f
       @code = code
     end
-
-    # @amount = amount
-    # @code = code
   end
 
   def amount
@@ -42,7 +41,7 @@ class Currency
   end
 
   def == (other)
-    if @amount == other.amount && @code == other.code     #don't know what I'm doing
+    if @amount == other.amount && @code == other.code
       true
     else
       false
@@ -75,6 +74,7 @@ class Currency
   end
 
   def * (other)
-    Currency.new(@amount*other).amount
+
+    Currency.new("#{@amount*other}", @code).amount
   end
 end
