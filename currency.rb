@@ -69,7 +69,8 @@ class Currency
     if @code == other.code
       @amount - other.amount
     else
-      "Error 404: Cannot add different types of currency!"
+      raise DifferentCurrencyCodeError
+      #{}"Error 404: Cannot add different types of currency!"
     end
   end
 
