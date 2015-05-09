@@ -75,7 +75,6 @@ class Currency
   end
 
   def * (other)
-
     Currency.new("#{@amount*other}", @code).amount
   end
 end
