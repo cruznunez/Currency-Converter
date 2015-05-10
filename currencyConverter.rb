@@ -5,17 +5,23 @@ class CurrencyConverter
   end
 
   def convert(currency_object, code)
-    code = code.to_s
+    code = code.to_sym
+    # puts code                                     #debugging
     # puts @conversions[:USD]
     if code == currency_object.code
+      # puts "new code same as old code"            #debugging
       return Currency.new("#{currency_object.amount}", code)
+    elsif @conversions.include?(code)
+      # puts "@conversions.include?(code) true"     #debugging
+      old_amount = currency_object.amount
+      old_rate = @conversions[currency_object.code.to_sym]
+      new_rate = @conversions[code.to_sym]
+      new_amount = old_amount/old_rate*new_rate
+      new_currency = Currency.new("#{new_amount}", code)
+      return new_currency.amount, new_currency.code
     else
-      # puts "currency_object.amount: #{currency_object.amount}"
-      # puts "@conversions[currency_object.code.to_sym]: #{@conversions[currency_object.code.to_sym]}"
-      # puts "@conversions[code.to_sym]: #{@conversions[code.to_sym]}"
-      # puts "currency_object.amount/@conversions[code.to_sym]: #{currency_object.amount/@conversions[code.to_sym]}"
-      return (currency_object.amount)/(@conversions[currency_object.code.to_sym])*(@conversions[code.to_sym])
+      # puts "convert method failed"                #debugging
+      raise UnknownCurrencyCodeError
     end
   end
-
 end

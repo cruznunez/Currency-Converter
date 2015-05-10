@@ -24,9 +24,9 @@ class Currency
       @amount = amount.delete(symbol).to_f
       @code = code
     else
-      #puts "sym_check false"            #debugging
-      puts amount
-      puts code
+      # puts "sym_check false"           #debugging
+      # puts amount                      #debugging
+      # puts code                        #debugging
       @amount = amount.to_f
       @code = code
     end
